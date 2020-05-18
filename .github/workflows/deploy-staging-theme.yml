@@ -1,0 +1,37 @@
+name: Deploy Shopify Theme to Staging and Preview
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out Git repository
+      uses: actions/checkout@v2
+    - name: Set up Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12
+    - name: Install dependencies
+      run: yarn install      
+    - name: Run linters
+      run: yarn lint
+    - name: Build app
+      run: yarn build
+    - name: Deploy to preview
+      uses: praesensco/shopify-themekit-action@master
+      env:
+        SHOPIFY_API_KEY: ${{ secrets.PRODUCTION_SHOPIFY_API_KEY }}
+        SHOPIFY_PASSWORD: ${{ secrets.PRODUCTION_SHOPIFY_PASSWORD }}
+        SHOPIFY_STORE_URL: ${{ secrets.PRODUCTION_SHOPIFY_STORE_URL }}
+        SHOPIFY_THEME_NAME: 'preview'
+    - name: Deploy to staging
+      uses: ./.github/actions/shopify-themekit-action
+      env:
+        SHOPIFY_API_KEY: ${{ secrets.STAGING_SHOPIFY_API_KEY }}
+        SHOPIFY_PASSWORD: ${{ secrets.STAGING_SHOPIFY_PASSWORD }}
+        SHOPIFY_STORE_URL: ${{ secrets.STAGING_SHOPIFY_STORE_URL }}
+        SHOPIFY_THEME_NAME: 'staging'

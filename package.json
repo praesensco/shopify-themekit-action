@@ -1,0 +1,20 @@
+{
+  "name": "shopify-themekit-action",
+  "version": "1.0",
+  "description": "Build and deploy Shopify Theme with Githuub Actions",
+  "repository": "https://github.com/praesensco/shopify-themekit-action",
+  "license": "MIT",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@shopify/themekit": "^1.1.4",
+    "shopify-api-node": "^3.3.1"
+  },
+  "author": "praesens.co",
+  "scripts": {
+    "lint": "node"
+  },
+  "engines": {
+    "node": ">=12 <13"
+  }
+}

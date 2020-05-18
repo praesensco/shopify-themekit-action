@@ -1,0 +1,5 @@
+name: 'Build and deploy Shopify Themekit Action'
+description: 'Build and deploy Shopify theme'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'

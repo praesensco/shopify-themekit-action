@@ -1,0 +1,31 @@
+name: Delete Shopify Theme Review
+
+on:
+  pull_request:
+    types: closed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out Git repository
+      uses: actions/checkout@v2
+    - name: Set up Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12
+    - name: Install dependencies
+      run: yarn install      
+    - name: Run linters
+      run: yarn lint
+    - name: Build app
+      run: yarn build
+    - name: Delete review theme
+      uses: praesensco/shopify-themekit-action@master
+      env:
+        SHOPIFY_API_KEY: ${{ secrets.REVIEW_SHOPIFY_API_KEY }}
+        SHOPIFY_PASSWORD: ${{ secrets.REVIEW_SHOPIFY_PASSWORD }}
+        SHOPIFY_STORE_URL: ${{ secrets.REVIEW_SHOPIFY_STORE_URL }}
+        SHOPIFY_THEME_NAME: ${{ github.event.pull_request.head.ref }}
+        SHOPIFY_THEMEKIT_ACTION: 'delete'
+        
