@@ -29,7 +29,7 @@ jobs:
         SHOPIFY_STORE_URL: ${{ secrets.PRODUCTION_SHOPIFY_STORE_URL }}
         SHOPIFY_THEME_NAME: 'preview'
     - name: Deploy to staging
-      uses: ./.github/actions/shopify-themekit-action
+      uses: praesensco/shopify-themekit-action@master
       env:
         SHOPIFY_API_KEY: ${{ secrets.STAGING_SHOPIFY_API_KEY }}
         SHOPIFY_PASSWORD: ${{ secrets.STAGING_SHOPIFY_PASSWORD }}
